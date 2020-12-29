@@ -5,11 +5,27 @@ export const ACTION_TYPES = {
     UPDATE: 'UPDATE',
     DELETE: 'DELETE',
     FETCH_ALL_SHARES: 'FETCH_ALL_SHARES',
+    FETCH_ALL_SHARES_CURRENT_PRICES: 'FETCH_ALL_SHARES_CURRENT_PRICES',
 
 }
 
 export const fetchAll = () => dispatch => {
     api.share().fetchAll()
+    .then(
+        response => {
+            //Disatch called with action
+            //response data is passed into the reducer
+            dispatch({
+                type:ACTION_TYPES.FETCH_ALL_SHARES,
+                payload: response.data
+            })
+        }
+    )
+    .catch(err => console.log(err))
+}
+
+export const fetchAllCurrentPrices = () => dispatch => {
+    api.share().fetchAllCurrentPrices()
     .then(
         response => {
             //Disatch called with action

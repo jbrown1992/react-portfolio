@@ -1,7 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { connect } from "react-redux";
 import * as actionsOptions from "../actions/option";
-import * as ReactBootStrap from "react-bootstrap"
+import { ButtonGroup, Button, Table } from "react-bootstrap"
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import OptionForm from './OptionForm';
 
 const Options = (props) => {
 
@@ -10,10 +13,22 @@ const Options = (props) => {
         props.fetchAllOptions()
     }, [])
 
-   
+   const [currentId, setCurrentId] = useState(0);
 
+   function editOption(record) {
+    setCurrentId(record.id)
+    window.scrollTo(0, 0)
+   }
+
+   const deleteOption =  record => {
+       if(window.confirm('Are you sure you want to delete this record?')){
+        props.deleteOption(record.id)
+       }    
+   }
     return ( 
-    <div><ReactBootStrap.Table striped bordered hover variant="dark">
+    <div>
+        <OptionForm {...({currentId, setCurrentId})}/>
+        <Table striped bordered hover variant="dark">
     <thead>
       <tr>
         <th>Symbol</th>
@@ -26,6 +41,7 @@ const Options = (props) => {
         <th>Avg. Price</th>
         <th>Commission</th>
         <th>Profit</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -43,13 +59,19 @@ const Options = (props) => {
                     <td>${record.averagePrice}</td>
                     <td>${record.commission}</td>
                     <td>${record.profit}</td>
+                    <td>
+                        <ButtonGroup variant="text">
+                            <Button variant="secondary"><EditIcon color="action" onClick ={() => {editOption(record)}}></EditIcon></Button>
+                            <Button variant="secondary"><DeleteIcon color="secondary" onClick ={() => deleteOption(record)}></DeleteIcon></Button>
+                            </ButtonGroup>
+                    </td>
                 </tr>
 
             )
         })
         }
         </tbody>
-  </ReactBootStrap.Table>
+  </Table>
   </div>
         );
 }
@@ -60,6 +82,7 @@ const mapStateToProps = state => ({
 
 const mapActionToProps = {
     fetchAllOptions: actionsOptions.fetchAll,
+    deleteOption: actionsOptions.Delete,
 }
  
 export default connect(mapStateToProps, mapActionToProps)(Options);

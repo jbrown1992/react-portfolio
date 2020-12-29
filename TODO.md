@@ -12,7 +12,9 @@
 
 - Shares
     - Shares profit
-        - API to get share price
+        - API to get share price (USD)
+        - Manually update share price
+        - API to get share price (GBP)
 
  - Shares Tracker
     - When assigned, track shares

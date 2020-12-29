@@ -6,6 +6,7 @@ import Options from './components/Options';
 import OptionForm from './components/OptionForm';
 import TotalProfit from './components/TotalProfit';
 import AnnualReturn from './components/AnnualReturn';
+import Return from './components/Return';
 import Shares from './components/Shares'
 import Selector from './components/Selector'
 
@@ -14,6 +15,7 @@ function App() {
     <Provider store = {store}>
       <TotalProfit />
       <AnnualReturn />
+      <Return />
       <Selector />
     </Provider>
     

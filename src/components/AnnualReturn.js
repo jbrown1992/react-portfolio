@@ -32,7 +32,7 @@ const AnnualReturn = (props) => {
 
 
     return (
-        <div>Annual Return - {annualReturn.toFixed(2)}%
+        <div>Annual Return % - {annualReturn.toFixed(2)}%
         </div>
     );
 

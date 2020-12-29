@@ -39,8 +39,8 @@ export const create = (data, onSuccess) => dispatch => {
 }
 
 export const update = (id, data, onSuccess) => dispatch => {
-
-    api.option.Delete(id, data)
+    calculateProfit(data)
+    api.option().update(id, data)
     .then(response => {
         dispatch({
             type:ACTION_TYPES.UPDATE,
@@ -54,7 +54,7 @@ export const update = (id, data, onSuccess) => dispatch => {
 
 export const Delete = (id, onSuccess) => dispatch => {
 
-    api.option.update(id)
+    api.option().delete(id)
     .then(response => {
         dispatch({
             type:ACTION_TYPES.DELETE,
